@@ -1,5 +1,7 @@
 package com.kafka.user_service.controller;
 
+import com.kafka.user_service.dto.CreateUserRequestDto;
+import com.kafka.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,13 @@ public class UserController {
     private String KAFKA_RANDOM_USER_TOPIC;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final UserService userService;
+
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody CreateUserRequestDto createUserRequestDto) {
+        userService.createUser(createUserRequestDto);
+        return ResponseEntity.ok("User is created");
+    }
 
 
 
